@@ -664,7 +664,7 @@
 				function ReaderModel(){
 					//todo 实现和阅读器相关的数据交互的方法
 
-					var Chapter_id;
+					var Chapter_id = null;
 					var ChapterTotal;
 					var init = function(UIcallback) {
 
@@ -723,7 +723,7 @@
 
 	 				//@@
 					var getCurChapterContent = function(chapter_id,callback){
-						$.get('data/data' + chapter_id + '.json', function(data){
+						$.get('data/data' + Chapter_id + '.json', function(data){
 							if(data.result == 0) {
 								var url = data.jsonp;
 								Util.getJSONP(url,function(data){
@@ -735,7 +735,7 @@
 
 					var getCurChapterContentPromise = function(){
 						return new Promise(function(resolve,reject){
-							$.get('data/data' + chapter_id + '.json', function(data){
+							$.get('data/data' + Chapter_id + '.json', function(data){
 								if(data.result == 0) {
 									var url = data.jsonp;
 									Util.getJSONP(url,function(data){

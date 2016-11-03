@@ -735,7 +735,7 @@
 
 					var getCurChapterContentPromise = function(){
 						return new Promise(function(resolve,reject){
-							$.get('data/data' + Chapter_id + '.json', function(data){
+							$.get('data/data' + chapter_id + '.json', function(data){
 								if(data.result == 0) {
 									var url = data.jsonp;
 									Util.getJSONP(url,function(data){

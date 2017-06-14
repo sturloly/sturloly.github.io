@@ -1,4 +1,4 @@
-## Personal Practice Project
+## Personal Practice Demo Projects
 
 
 [https://sturloly.github.io](https://sturloly.github.io)

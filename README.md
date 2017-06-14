@@ -1,4 +1,4 @@
-## storage and practice codes
+## Personal Practice Codes
 
 
 [https://sturloly.github.io](https://sturloly.github.io)

@@ -1,4 +1,4 @@
-## Personal Practice Codes
+## Personal Practice Project
 
 
 [https://sturloly.github.io](https://sturloly.github.io)

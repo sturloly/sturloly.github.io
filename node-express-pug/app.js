@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');  // core module inclued by default
 const mongoose = require('mongoose'); // structure data on a application level
+const bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost/nodedb');
 let db = mongoose.connection;
@@ -26,6 +27,12 @@ let Article = require('./models/article')
 app.set('views', path.join(__dirname, 'views'));  // dirname meaning the current direc, view -- views folder
 app.set('view engine', 'pug'); // chose the pug view engine
 
+// body parser middleware
+// parse application/x-www.form-urlencoded
+app.use(bodyParser.urlencoded({ extended:false}))
+// parse application/json
+app.use(bodyParser.json())
+
 
 // home route
 app.get('/', function(req, res){
@@ -42,9 +49,26 @@ app.get('/', function(req, res){
 });
 
 // add route
-app.get('/articles/add' , function(req, res){
+app.get('/articles/add' ,function(req, res) {
   res.render('add_article', {
     title:'Add Articles'
+  })
+});
+
+// add submit POST route  (same URL allowed as long as different request type)
+app.post('/articles/add', function(req, res) {
+  let article = new Article();
+  article.title = req.body.title;
+  article.author = req.body.author;
+  article.body = req.body.body;
+
+  article.save(function(err){
+    if(err){
+      console.log(err);
+      return;
+    } else {
+      res.redirect('/')
+    }
   })
 });
 

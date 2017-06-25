@@ -19,6 +19,9 @@ db.on('error', function(err){
 // init app
 const app = express();
 
+// breing in models
+let Article = require('./models/article')
+
 // load view engine
 app.set('views', path.join(__dirname, 'views'));  // dirname meaning the current direc, view -- views folder
 app.set('view engine', 'pug'); // chose the pug view engine
@@ -26,27 +29,15 @@ app.set('view engine', 'pug'); // chose the pug view engine
 
 // home route
 app.get('/', function(req, res){
-  let articles = [
-    {
-      id:1,
-      title:'Aricle One',
-      auther:'lin',
-      body:'This is article one'
-    },{
-      id:2,
-      title:'Aricle Twe',
-      auther:'wang',
-      body:'This is article one'
-    },{
-      id:3,
-      title:'Aricle Three',
-      auther:'Sturloly',
-      body:'This is article one'
+  Article.find({}, function(err, articles){
+    if(err){
+      console.log(err);
+    } else {
+      res.render('index', {
+        title:'Articles',
+        articles: articles
+      });
     }
-  ]
-  res.render('index', {
-    title:'Articles',
-    articles: articles
   });
 });
 

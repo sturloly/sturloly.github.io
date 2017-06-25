@@ -1,12 +1,12 @@
 let mongoose = require('mongoose');
 
 // articles schema
-let articlesSchema = mongoose.Schema({
+let articleSchema = mongoose.Schema({
   title:{
     type: String,
     required: true
   },
-  auther:{
+  author:{
     type: String,
     required:true
   },
@@ -14,6 +14,6 @@ let articlesSchema = mongoose.Schema({
     type: String,
     required: true
   }
-})
+});
 
-let Articale = module.exports.model('Article', articleSchema)
+let Article = module.exports = mongoose.model('Article', articleSchema);

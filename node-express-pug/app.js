@@ -10,8 +10,27 @@ app.set('view engine', 'pug'); // chose the pug view engine
 
 // home route
 app.get('/', function(req, res){
+  let articles = [
+    {
+      id:1,
+      title:'Aricle One',
+      auther:'lin',
+      body:'This is article one'
+    },{
+      id:2,
+      title:'Aricle Twe',
+      auther:'wang',
+      body:'This is article one'
+    },{
+      id:3,
+      title:'Aricle Three',
+      auther:'Sturloly',
+      body:'This is article one'
+    }
+  ]
   res.render('index', {
-    title:'Hello World'
+    title:'Articles',
+    articles: articles
   });
 });
 

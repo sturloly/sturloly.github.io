@@ -2,9 +2,9 @@
   "name": "node-express-pug",
   "version": "1.0.0",
   "description": "node-express-example",
-  "main": "app.js",
+  "main": "app",
   "scripts": {
-    "start": "node app"
+    "start": "nodemon"
   },
   "keywords": [
     "node"
@@ -17,5 +17,7 @@
     "mongoose": "^4.11.0",
     "pug": "^2.0.0-rc.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }

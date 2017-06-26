@@ -4,8 +4,7 @@ const mongoose = require('mongoose'); // structure data on a application level
 const bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost/nodedb');
-let db = mongoose.connection;
-
+const db = mongoose.connection;
 
 // check connection
 db.once('open',function(){
@@ -29,9 +28,12 @@ app.set('view engine', 'pug'); // chose the pug view engine
 
 // body parser middleware
 // parse application/x-www.form-urlencoded
-app.use(bodyParser.urlencoded({ extended:false}))
+app.use(bodyParser.urlencoded({ extended:false}));
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
+//set public folder
+app.use(express.static(path.join(__dirname,'public')));
 
 
 // home route
@@ -48,10 +50,19 @@ app.get('/', function(req, res){
   });
 });
 
+// get single article
+app.get('/article/:id', function(req, res){
+  Article.findById(req.params.id, function(err, article) {
+    res.render('article', {
+      article: article
+    });
+  });
+});
+
 // add route
 app.get('/articles/add' ,function(req, res) {
   res.render('add_article', {
-    title:'Add Articles'
+    title:'Add Article'
   })
 });
 

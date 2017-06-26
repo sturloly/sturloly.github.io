@@ -93,6 +93,24 @@ app.post('/articles/add', function(req, res) {
   })
 });
 
+// update submit article
+app.post('/articles/edit/:id', function(req, res) {
+  let article = {}
+  article.title = req.body.title;
+  article.author = req.body.author;
+  article.body = req.body.body;
+
+  let query = {_id:req.params.id}
+
+  Article.update(query, article, function(err){  // useing Article Model
+    if(err){
+      console.log(err);
+      return;
+    } else {
+      res.redirect('/')
+    }
+  });
+});
 
 //start server
 app.listen(3000,function(){

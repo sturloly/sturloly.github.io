@@ -55,15 +55,15 @@ app.use(function (req, res, next) {
 // Express Validator Middleware
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
-    var namespace = param.split('.')
-    , root = namespace.shift()
-    , formParam = root;
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
 
     while(namespace.length) {
       formParam += '[' + namespace.shift() + ']';
     }
     return {
-      param : fromParam,
+      param : formParam,
       msg   : msg,
       value : value
     };
@@ -113,20 +113,34 @@ app.get('/articles/add' ,function(req, res) {
 
 // add submit POST route  (same URL allowed as long as different request type)
 app.post('/articles/add', function(req, res) {
-  let article = new Article();
-  article.title = req.body.title;
-  article.author = req.body.author;
-  article.body = req.body.body;
+  req.checkBody('title', 'Title is required').notEmpty();
+  req.checkBody('author', 'Author is required').notEmpty();
+  req.checkBody('body', 'Body is required').notEmpty();
 
-  article.save(function(err){
-    if(err){
-      console.log(err);
-      return;
-    } else {
-      req.flash('success', 'Article Added')
-      res.redirect('/')
-    }
-  })
+  // get errors
+  let errors = req.validationErrors();
+
+  if(errors){
+    res.render('add_article', {
+      title:'Add Article',
+      errors:errors
+    });
+  } else {
+    let article = new Article();
+    article.title = req.body.title;
+    article.author = req.body.author;
+    article.body = req.body.body;
+
+    article.save(function(err){
+      if(err){
+        console.log(err);
+        return;
+      } else {
+        req.flash('success', 'Article Added')
+        res.redirect('/')
+      }
+    })
+  }
 });
 
 // update submit article
